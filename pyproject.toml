@@ -1,0 +1,6 @@
+[project]
+name = "secret-santa-bot"
+version = "0.1.0"
+description = "Telegram bot for creating secret santa sessions"
+requires-python = ">=3.13"
+dependencies = []
