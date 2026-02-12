@@ -18,7 +18,7 @@ addresses = sa.Table(
     sa.Column("country", sa.TEXT, nullable=False),
     sa.Column("city", sa.TEXT, nullable=False),
     sa.Column("street", sa.TEXT, nullable=False),
-    sa.Column("house_number", sa.TEXT, nullable=False),
+    sa.Column("house", sa.TEXT, nullable=False),
     sa.Column("apartment", sa.TEXT, nullable=True),
     sa.Column("description", sa.TEXT, nullable=True),
     sa.Column("created_at", TIMESTAMPTZ, nullable=False, server_default=sa.func.now()),
@@ -71,4 +71,14 @@ pairs = sa.Table(
         session_id,
         unique=True,
     ),
+)
+
+wishes = sa.Table(
+    "wishes",
+    _metadata,
+    sa.Column("id", sa.BIGINT, primary_key=True, autoincrement=True),
+    sa.Column("user_id", sa.BIGINT, sa.ForeignKey("users.id"), nullable=False),
+    sa.Column("description", sa.TEXT, nullable=False),
+    sa.Column("created_at", TIMESTAMPTZ, nullable=False, server_default=sa.func.now()),
+    sa.Column("updated_at", TIMESTAMPTZ, nullable=False, server_default=sa.func.now()),
 )
