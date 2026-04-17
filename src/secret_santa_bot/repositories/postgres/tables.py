@@ -54,16 +54,25 @@ sessions = sa.Table(
 pairs = sa.Table(
     "pairs",
     _metadata,
-    sa.Column("id", sa.BIGINT, primary_key=True),
     first_user_id := sa.Column(
-        "first_user_id", sa.BIGINT, sa.ForeignKey("users.id"), nullable=False
+        "first_user_id",
+        sa.BIGINT,
+        sa.ForeignKey("users.id"),
+        nullable=False,
     ),
     second_user_id := sa.Column(
-        "second_user_id", sa.BIGINT, sa.ForeignKey("users.id"), nullable=False
+        "second_user_id",
+        sa.BIGINT,
+        sa.ForeignKey("users.id"),
+        nullable=False,
     ),
     session_id := sa.Column(
-        "session_id", sa.BIGINT, sa.ForeignKey("sessions.id"), nullable=False
+        "session_id",
+        sa.BIGINT,
+        sa.ForeignKey("sessions.id"),
+        nullable=False,
     ),
+    # Indices
     sa.Index(
         "users_and_session_unique_idx",
         first_user_id,
