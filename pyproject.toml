@@ -1,0 +1,17 @@
+[project]
+name = "secret-santa-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Danil Astakhov", email = "75833312+progbagger@users.noreply.github.com" }
+]
+requires-python = ">=3.14.4"
+dependencies = []
+
+[project.scripts]
+secret-santa-bot = "secret_santa_bot:main"
+
+[build-system]
+requires = ["uv_build>=0.11.21,<0.12.0"]
+build-backend = "uv_build"
