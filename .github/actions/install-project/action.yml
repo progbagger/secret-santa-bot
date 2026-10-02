@@ -1,0 +1,11 @@
+name: Install project
+description: Set up the uv environment and install the project
+runs:
+  using: composite
+  steps:
+    - name: Set up Python and uv
+      uses: ./.github/actions/setup-environment
+
+    - name: Install the project
+      shell: bash
+      run: uv sync --locked --all-groups
