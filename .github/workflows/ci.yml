@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ruff:
+    name: Run Ruff checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/ruff-action@v4.0.0
+        with:
+          version-file: pyproject.toml
+      - run: ruff check .
+      - run: ruff format --check .
+
+  mypy:
+    name: Run mypy check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/install-project
+      - run: uv run mypy .
+
+  unit-tests:
+    name: Run unit tests using uv
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/install-project
+      - run: uv run pytest tests/units -q || { test_exit_code=$?; [ "$test_exit_code" -eq 5 ] || exit "$test_exit_code"; }
+
+  functional-tests:
+    name: Run functional tests using uv
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/install-project
+      - run: uv run pytest tests/functional -q || { test_exit_code=$?; [ "$test_exit_code" -eq 5 ] || exit "$test_exit_code"; }
